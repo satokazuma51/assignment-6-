@@ -4,7 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simple Auth & Preferences App</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            transition: background-color 0.3s;
+            background-color: white;
+            color: black;
+        }
+        body.dark {
+            background-color: #121212;
+            color: white;
+        }
+        #app {
+            max-width: 500px;
+            margin: auto;
+            padding: 1em;
+            text-align: center;
+        }
+        h2 {
+            font-size: 1.5em;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 0.5em;
+            margin-bottom: 1em;
+            font-size: 1em;
+        }
+    </style>
 </head>
 <body>
     <div id="app">
@@ -21,12 +47,51 @@
                 <input type="checkbox" id="darkModeToggle" onchange="toggleDarkMode()">
                 Dark Mode
             </label>
-            <button onclick="applyFilter()">Apply Filter</button>
-            <div id="filteredResults"></div>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            checkAuth();
+            loadPreferences();
+        });
+
+        function login() {
+            const username = document.getElementById('username').value;
+            if (username) {
+                localStorage.setItem('username', username);
+                checkAuth();
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('username');
+            checkAuth();
+        }
+
+        function checkAuth() {
+            const username = localStorage.getItem('username');
+            if (username) {
+                document.getElementById('loginSection').style.display = 'none';
+                document.getElementById('userSection').style.display = 'block';
+                document.getElementById('displayUsername').textContent = username;
+            } else {
+                document.getElementById('loginSection').style.display = 'block';
+                document.getElementById('userSection').style.display = 'none';
+            }
+        }
+
+        function loadPreferences() {
+            const darkMode = localStorage.getItem('darkMode') === 'true';
+            document.body.classList.toggle('dark', darkMode);
+            document.getElementById('darkModeToggle').checked = darkMode;
+        }
+
+        function toggleDarkMode() {
+            const isDark = document.getElementById('darkModeToggle').checked;
+            document.body.classList.toggle('dark', isDark);
+            localStorage.setItem('darkMode', isDark);
+        }
+    </script>
 </body>
 </html>
-

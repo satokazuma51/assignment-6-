@@ -29,3 +29,36 @@
     <script src="script.js"></script>
 </body>
 </html>
+document.addEventListener("DOMContentLoaded", () => {
+    checkAuth();
+    loadPreferences();
+});
+
+// Login function
+function login() {
+    const username = document.getElementById('username').value;
+    if (username) {
+        localStorage.setItem('username', username);
+        checkAuth();
+    }
+}
+
+// Logout function
+function logout() {
+    localStorage.removeItem('username');
+    checkAuth();
+}
+
+// Check if user is authenticated
+function checkAuth() {
+    const username = localStorage.getItem('username');
+    if (username) {
+        document.getElementById('loginSection').style.display = 'none';
+        document.getElementById('userSection').style.display = 'block';
+        document.getElementById('displayUsername').textContent = username;
+    } else {
+        document.getElementById('loginSection').style.display = 'block';
+        document.getElementById('userSection').style.display = 'none';
+    }
+}
+

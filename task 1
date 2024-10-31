@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Auth & Preferences App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <div id="loginSection">
+            <h2>Login</h2>
+            <input type="text" id="username" placeholder="Enter Username" required>
+            <button onclick="login()">Login</button>
+        </div>
+
+        <div id="userSection" style="display: none;">
+            <h2>Welcome, <span id="displayUsername"></span></h2>
+            <button onclick="logout()">Logout</button>
+            <label>
+                <input type="checkbox" id="darkModeToggle" onchange="toggleDarkMode()">
+                Dark Mode
+            </label>
+            <button onclick="applyFilter()">Apply Filter</button>
+            <div id="filteredResults"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
